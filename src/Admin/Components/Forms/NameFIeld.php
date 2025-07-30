@@ -22,7 +22,7 @@ class NameField
     {
         return Action::make($name . '_translate')
             ->hidden(function (string $operation) {
-                return app('lang')->adminLanguages()->count() <= 1 || $operation == 'create';
+                return app('lang')->adminLanguages()->count() <= 1 || $operation != 'edit';
             })
             ->modalWidth(Width::TwoExtraLarge)
             ->badge(function ($record) use ($name) {

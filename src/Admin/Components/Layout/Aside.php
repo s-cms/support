@@ -19,6 +19,6 @@ class Aside
             $schema[] = StatusField::make();
         }
 
-        return Section::make($schema)->columnSpan(1)->hiddenOn('create');
+        return Section::make($schema)->columnSpan(1);
     }
 }

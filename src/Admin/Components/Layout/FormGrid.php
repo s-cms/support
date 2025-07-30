@@ -9,9 +9,17 @@ class FormGrid extends Grid
     protected function setUp(): void
     {
         $this->gridContainer()
-            ->columns([
-                '@md' => 3,
-                '@xl' => 4,
-            ])->columnSpanFull();
+            ->columns(function ($operation) {
+                if ($operation == 'create') {
+                    return 1;
+                }
+                return [
+                    '@md' => 3,
+                    '@xl' => 4,
+                ];
+                // '@md' => 3,
+                // '@xl' => 4,
+            })
+            ->columnSpanFull();
     }
 }
