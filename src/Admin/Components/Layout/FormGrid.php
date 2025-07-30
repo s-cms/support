@@ -13,6 +13,7 @@ class FormGrid extends Grid
                 if ($operation == 'create') {
                     return 1;
                 }
+
                 return [
                     '@md' => 3,
                     '@xl' => 4,
