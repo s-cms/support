@@ -49,7 +49,7 @@ class ImageUpload
                 ->directory($directory)
                 ->imagePreviewHeight('150')
                 ->imageResizeMode('cover')
-                ->imageCropAspectRatio('16:9')
+                // ->imageCropAspectRatio('16:9')
                 ->live()
                 ->afterStateUpdated(function (Set $set, $state, Get $get) use ($name) {
                     if (! $state instanceof TemporaryUploadedFile) {
