@@ -45,10 +45,11 @@ class NameField
             ->icon(function (): string {
                 return 'heroicon-o-language';
             })
-            /**@phpstan-ignore-next-line */
-            ->schema(app('lang')->adminLanguages()->where('id', '!=', main_lang_id())->map(function ($lang) {
-                return TextInput::make($lang->slug)->label($lang->name);
-            })->toArray())
+            ->schema(function () {
+                return app('lang')->adminLanguages()->where('id', '!=', main_lang_id())->map(function ($lang) {
+                    return TextInput::make($lang->slug)->label($lang->name);
+                })->toArray();
+            })
             ->fillForm(function ($record) use ($name) {
                 /**@phpstan-ignore-next-line */
                 return app('lang')->adminLanguages()->where('id', '!=', main_lang_id())->mapWithKeys(function ($lang) use ($record, $name) {
