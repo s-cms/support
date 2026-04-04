@@ -29,18 +29,27 @@ class NameField
                 if (! $record) {
                     return 0;
                 }
+                $activeSlugs = app('lang')->adminLanguages()->where('id', '!=', main_lang_id())->pluck('slug')->toArray();
+                $translations = $record->getTranslations($name);
+                $filledCount = count(array_filter(
+                    array_intersect_key($translations, array_flip($activeSlugs)),
+                    fn ($value) => ! empty($value)
+                ));
 
-                return count($record->getTranslations($name)) - 1;
+                return $filledCount;
             })
             ->badgeColor(function ($record) use ($name) {
                 if (! $record) {
                     return 'danger';
                 }
-                if (count($record->getTranslations($name)) > 1) {
-                    return 'info';
-                }
+                $activeSlugs = app('lang')->adminLanguages()->where('id', '!=', main_lang_id())->pluck('slug')->toArray();
+                $translations = $record->getTranslations($name);
+                $filledCount = count(array_filter(
+                    array_intersect_key($translations, array_flip($activeSlugs)),
+                    fn ($value) => ! empty($value)
+                ));
 
-                return 'danger';
+                return $filledCount >= count($activeSlugs) ? 'info' : 'danger';
             })
             ->icon(function (): string {
                 return 'heroicon-o-language';
