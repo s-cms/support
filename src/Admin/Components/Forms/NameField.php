@@ -25,18 +25,8 @@ class NameField
                 return app('lang')->adminLanguages()->count() <= 1 || $operation != 'edit';
             })
             ->modalWidth(Width::TwoExtraLarge)
-            ->badge(function ($record) use ($name) {
-                if (! $record) {
-                    return 0;
-                }
-                $activeSlugs = app('lang')->adminLanguages()->where('id', '!=', main_lang_id())->pluck('slug')->toArray();
-                $translations = $record->getTranslations($name);
-                $filledCount = count(array_filter(
-                    array_intersect_key($translations, array_flip($activeSlugs)),
-                    fn ($value) => ! empty($value)
-                ));
-
-                return $filledCount;
+            ->badge(function () {
+                return app('lang')->adminLanguages()->where('id', '!=', main_lang_id())->count();
             })
             ->badgeColor(function ($record) use ($name) {
                 if (! $record) {
@@ -49,7 +39,7 @@ class NameField
                     fn ($value) => ! empty($value)
                 ));
 
-                return $filledCount >= count($activeSlugs) ? 'info' : 'danger';
+                return $filledCount >= count($activeSlugs) ? 'success' : 'danger';
             })
             ->icon(function (): string {
                 return 'heroicon-o-language';
