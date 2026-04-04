@@ -44,15 +44,18 @@ class NameField
             ->icon(function (): string {
                 return 'heroicon-o-language';
             })
-            ->schema(function () {
-                return app('lang')->adminLanguages()->where('id', '!=', main_lang_id())->map(function ($lang) {
-                    return TextInput::make($lang->slug)->label($lang->name);
+            ->schema(function () use ($name) {
+                return app('lang')->adminLanguages()->where('id', '!=', main_lang_id())->map(function ($lang) use ($name) {
+                    return TextInput::make($lang->slug)
+                        ->label($lang->name)
+                        ->placeholder(fn ($record) => $record?->getTranslation($name, main_lang()) ?? '');
                 })->toArray();
             })
             ->fillForm(function ($record) use ($name) {
-                /**@phpstan-ignore-next-line */
                 return app('lang')->adminLanguages()->where('id', '!=', main_lang_id())->mapWithKeys(function ($lang) use ($record, $name) {
-                    return [$lang->slug => $record->getTranslation($name, $lang->slug)];
+                    $translations = $record->getTranslations($name);
+
+                    return [$lang->slug => $translations[$lang->slug] ?? ''];
                 })->toArray();
             })
             ->action(function (Model $record, $data) use ($name) {
