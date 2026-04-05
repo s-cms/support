@@ -2,6 +2,9 @@
 
 namespace SmartCms\Support\Traits;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 /**
  * Trait HasParent
  */
@@ -10,12 +13,12 @@ trait HasParent
     /**
      * Get the parent relationship.
      */
-    abstract public function parent(): \Illuminate\Database\Eloquent\Relations\BelongsTo;
+    abstract public function parent(): BelongsTo;
 
     /**
      * Get the cached parent relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Model|null
+     * @return Model|null
      */
     public function getCachedParent()
     {
