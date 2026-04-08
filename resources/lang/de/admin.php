@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'status' => 'Status',
+    'updated_at' => 'Aktualisiert',
+    'created_at' => 'Erstellt',
+    'help' => 'Hilfe',
+    'password' => 'Passwort',
+    'name' => 'Name',
+    'slug' => 'Slug',
+    'views' => 'Aufrufe',
+    'view' => 'Ansehen',
+    'sorting' => 'Sortierung',
+    'save_close' => 'Speichern & Schließen',
+    'save' => 'Speichern',
+    'clear' => 'Leeren',
+    'generate' => 'Generieren',
+    'settings' => 'Einstellungen',
+    'image' => 'Bild',
+    'size' => 'Größe',
+    'alt' => 'Alt',
+    'width' => 'Breite',
+    'height' => 'Höhe',
+    'template' => 'Vorlage',
+    'saved' => 'Gespeichert',
+    'actions' => 'Aktionen',
+];

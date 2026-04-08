@@ -37,7 +37,7 @@ trait HasSlug
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function scopeSlug(Builder $query, string $slug)
     {
