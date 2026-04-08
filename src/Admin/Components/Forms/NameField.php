@@ -34,6 +34,9 @@ class NameField
                 }
                 $activeSlugs = app('lang')->adminLanguages()->where('id', '!=', main_lang_id())->pluck('slug')->toArray();
                 $translations = $record->getTranslations($name);
+                if (! is_array($translations) || empty($translations)) {
+                    return 'danger';
+                }
                 $filledCount = count(array_filter(
                     array_intersect_key($translations, array_flip($activeSlugs)),
                     fn ($value) => ! empty($value)
@@ -54,6 +57,9 @@ class NameField
             ->fillForm(function ($record) use ($name) {
                 return app('lang')->adminLanguages()->where('id', '!=', main_lang_id())->mapWithKeys(function ($lang) use ($record, $name) {
                     $translations = $record->getTranslations($name);
+                    if (! is_array($translations)) {
+                        $translations = [];
+                    }
 
                     return [$lang->slug => $translations[$lang->slug] ?? ''];
                 })->toArray();
